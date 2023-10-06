@@ -24,8 +24,11 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
 
-    //this dependency is used to pick date in signup Form
+    // This dependency is used to pick date in signup Form
     implementation group: 'com.toedter', name: 'jcalendar', version: '1.4'
+
+    // This dependency is for JDBC for MySQL (JDBC Driver for MySQL)
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
