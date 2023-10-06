@@ -23,6 +23,9 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:32.1.1-jre'
+
+    //this dependency is used to pick date in signup Form
+    implementation group: 'com.toedter', name: 'jcalendar', version: '1.4'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
