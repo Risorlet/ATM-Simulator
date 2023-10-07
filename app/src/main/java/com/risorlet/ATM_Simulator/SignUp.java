@@ -26,6 +26,7 @@ public class SignUp extends JFrame{
         setTitle("New Account Application Form");
         setLocation(350, 150);
         setIconImage(frameIcon.getImage());
+        setLayout(null);
 
         //heading text and Image
         JLabel personImage = new JLabel(personIcon);
@@ -465,12 +466,6 @@ public class SignUp extends JFrame{
                 account = "No";
             }
 
-            //form validation
-            if(fName.equals("") && lName.equals("") && dob.equals("") && gender.equals("") && email.equals("") && maritalStatus.equals("") && address.equals("") && city.equals("") && state.equals("") && pinCode.equals("") && religion.equals("") && cast.equals("") && income.equals("") && education.equals("") && occupation.equals("") && PAN.equals("") && aadhar.equals("") && senior.equals("") && account.equals("")){
-                JOptionPane.showMessageDialog(null, "Please fill all the required fields!");
-                return;
-            }
-
             //databse connection and query processing            
             try {
                 DatabaseConnection dbConnection = new DatabaseConnection();
@@ -484,6 +479,9 @@ public class SignUp extends JFrame{
             } catch (Exception e) {
                 System.out.println(e);
             }
+
+            //closing this frame and opening the next frame
+
         });
 
         JPanel controlButtonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
@@ -536,7 +534,6 @@ public class SignUp extends JFrame{
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLayout(null);
     }
 
 }
