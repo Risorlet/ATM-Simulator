@@ -15,6 +15,12 @@ public class SignUp extends JFrame{
     Image img = personIconLarge.getImage();
     ImageIcon personIcon = new ImageIcon(img.getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 
+    String[] possibleReligions = {"Hindu", "Muslim", "Sikh", "Christian", "Buddhist", "Other"};
+    String[] possibeCasts = {"General", "OBC", "SC/ST", "Other"};
+    String[] possibleIncomes = {"null", "Below 50,000", "50,000 - 1,00,000", "1,00,000 - 5,00,000", "Above 5,00,000"};
+    String[] possibleQualifications = {"null", "High School", "Bachelors", "Masters", "Other"};
+    String[] possibleOccupations = {"Unemployed", "Business", "Salaried", "Self-Employed", "Other"};
+
     SignUp (){
         //setting up the frame title and icon
         setTitle("New Account Application Form");
@@ -34,7 +40,7 @@ public class SignUp extends JFrame{
         headingPanel.add(title);
 
         //personal details heading
-        JLabel personalDetailsLabel = new JLabel("Enter Your Personal Details");
+        JLabel personalDetailsLabel = new JLabel("Section 1: Personal Details");
         personalDetailsLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
 
         JPanel heading2Panel = new JPanel(new FlowLayout());
@@ -199,6 +205,172 @@ public class SignUp extends JFrame{
         pinCodePanel.add(pinCodeLabel);
         pinCodePanel.add(pinCodeField);
 
+        // Additional details heading
+        JLabel additionalDetailsLabel = new JLabel("Section 2: Additional Details");
+        additionalDetailsLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+
+        JPanel heading3Panel = new JPanel(new FlowLayout());
+        heading3Panel.setBounds(100, 650, 500, 50);
+        heading3Panel.setBackground(Color.WHITE);
+        heading3Panel.add(additionalDetailsLabel);
+
+        // Religion
+        JLabel religionLabel = new JLabel("Religion:");
+        religionLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JComboBox<String> religionDropdown = new JComboBox<>(possibleReligions);
+        religionDropdown.setFont(new Font("Helvetica", Font.BOLD, 13));
+        religionDropdown.setPreferredSize(new Dimension(250, 20));
+        religionDropdown.setBackground(Color.WHITE);
+        religionDropdown.setSelectedItem(null);
+        religionDropdown.setFocusable(false);
+
+        JPanel religionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        religionPanel.setBounds(100, 700, 500, 50);
+        religionPanel.setBackground(Color.WHITE);
+        religionPanel.add(religionLabel);
+        religionPanel.add(religionDropdown);
+        
+        // Category
+        JLabel categoryLabel = new JLabel("Category:");
+        categoryLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JComboBox<String> categoryDropdown = new JComboBox<>(possibeCasts);
+        categoryDropdown.setFont(new Font("Helvetica", Font.BOLD, 13));
+        categoryDropdown.setPreferredSize(new Dimension(250, 20));
+        categoryDropdown.setBackground(Color.WHITE);
+        categoryDropdown.setSelectedItem(null);
+        categoryDropdown.setFocusable(false);
+
+        JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        categoryPanel.setBounds(100, 750, 500, 50);
+        categoryPanel.setBackground(Color.WHITE);
+        categoryPanel.add(categoryLabel);
+        categoryPanel.add(categoryDropdown);
+
+        //Income
+        JLabel incomeLabel = new JLabel("Income:");
+        incomeLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JComboBox<String> incomeDropdown = new JComboBox<>(possibleIncomes);
+        incomeDropdown.setFont(new Font("Helvetica", Font.BOLD, 13));
+        incomeDropdown.setPreferredSize(new Dimension(250, 20));
+        incomeDropdown.setBackground(Color.WHITE);
+        incomeDropdown.setSelectedItem(null);
+        incomeDropdown.setFocusable(false);
+
+        JPanel incomePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        incomePanel.setBounds(100, 800, 500, 50);
+        incomePanel.setBackground(Color.WHITE);
+        incomePanel.add(incomeLabel);
+        incomePanel.add(incomeDropdown);
+
+        //Education
+        JLabel educationLabel = new JLabel("Education:");
+        educationLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JComboBox<String> educationDropdown = new JComboBox<>(possibleQualifications);
+        educationDropdown.setFont(new Font("Helvetica", Font.BOLD, 13));
+        educationDropdown.setPreferredSize(new Dimension(250, 20));
+        educationDropdown.setBackground(Color.WHITE);
+        educationDropdown.setSelectedItem(null);
+        educationDropdown.setFocusable(false);
+
+        JPanel educationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        educationPanel.setBounds(100, 850, 500, 50);
+        educationPanel.setBackground(Color.WHITE);
+        educationPanel.add(educationLabel);
+        educationPanel.add(educationDropdown);
+
+        // Occupation
+        JLabel occupationLabel = new JLabel("Occupation:");
+        occupationLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JComboBox<String> occupationDropdown = new JComboBox<>(possibleOccupations);
+        occupationDropdown.setFont(new Font("Helvetica", Font.BOLD, 13));
+        occupationDropdown.setPreferredSize(new Dimension(250, 20));
+        occupationDropdown.setBackground(Color.WHITE);
+        occupationDropdown.setSelectedItem(null);
+        occupationDropdown.setFocusable(false);
+
+        JPanel occupationPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        occupationPanel.setBounds(100, 900, 500, 50);
+        occupationPanel.setBackground(Color.WHITE);
+        occupationPanel.add(occupationLabel);
+        occupationPanel.add(occupationDropdown);
+
+        // PAN Number
+        JLabel PANLabel = new JLabel("PAN Number:");
+        PANLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JTextField PANField = new JTextField(20);
+        PANField.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JPanel PANPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        PANPanel.setBounds(100, 950, 500, 50);
+        PANPanel.setBackground(Color.WHITE);
+        PANPanel.add(PANLabel);
+        PANPanel.add(PANField);
+
+        // Aadhar Number
+        JLabel aadharLabel = new JLabel("Aadhar Number:");
+        aadharLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JTextField aadharField = new JTextField(20);
+        aadharField.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JPanel aadharPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        aadharPanel.setBounds(100, 1000, 500, 50);
+        aadharPanel.setBackground(Color.WHITE);
+        aadharPanel.add(aadharLabel);
+        aadharPanel.add(aadharField);
+
+        // Senior Citizenship
+        JLabel seniorCitizenshipLabel = new JLabel("Senior Citizen:");
+        seniorCitizenshipLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JRadioButton SC_YesButton = new JRadioButton("Yes");
+        SC_YesButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        SC_YesButton.setBackground(Color.WHITE);
+
+        JRadioButton SC_NoButton = new JRadioButton("No");
+        SC_NoButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        SC_NoButton.setBackground(Color.WHITE);
+
+        ButtonGroup SC_Buttons = new ButtonGroup();
+        SC_Buttons.add(SC_YesButton);
+        SC_Buttons.add(SC_NoButton);
+
+        JPanel seniorCitizenshipPanel= new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        seniorCitizenshipPanel.setBounds(100, 1050, 500, 50);
+        seniorCitizenshipPanel.setBackground(Color.WHITE);
+        seniorCitizenshipPanel.add(seniorCitizenshipLabel);
+        seniorCitizenshipPanel.add(SC_YesButton);
+        seniorCitizenshipPanel.add(SC_NoButton);
+
+        // Existing Account Holder
+        JLabel accountLabel = new JLabel("Existing Account:");
+        accountLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JRadioButton account_YesButton = new JRadioButton("Yes");
+        account_YesButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        account_YesButton.setBackground(Color.WHITE);
+
+        JRadioButton account_NoButton = new JRadioButton("No");
+        account_NoButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        account_NoButton.setBackground(Color.WHITE);
+
+        ButtonGroup accountButtons = new ButtonGroup();
+        accountButtons.add(account_YesButton);
+        accountButtons.add(account_NoButton);
+
+        JPanel  accountPanel= new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
+        accountPanel.setBounds(100, 1100, 500, 50);
+        accountPanel.setBackground(Color.WHITE);
+        accountPanel.add(accountLabel);
+        accountPanel.add(account_YesButton);
+        accountPanel.add(account_NoButton);
+
         //form control buttons
         JButton clearButton = new JButton("CLEAR");
         clearButton.setForeground(Color.WHITE);
@@ -219,33 +391,115 @@ public class SignUp extends JFrame{
             cityField.setText("");
             stateField.setText("");
             pinCodeField.setText("");
+            religionDropdown.setSelectedItem(null);
+            categoryDropdown.setSelectedItem(null);
+            incomeDropdown.setSelectedItem(null);
+            educationDropdown.setSelectedItem(null);
+            occupationDropdown.setSelectedItem(null);
+            PANField.setText("");
+            aadharField.setText("");
+            SC_Buttons.clearSelection();
+            accountButtons.clearSelection();
         });
 
-        JButton submitButton = new JButton("SUBMIT");
-        submitButton.setForeground(Color.WHITE);
-        submitButton.setBackground(Color.BLACK);
-        submitButton.setFont(new Font("Helvetica", Font.BOLD, 13));
-        submitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        submitButton.setPreferredSize(new Dimension(120, 40));
-        submitButton.setFocusable(false);
-        submitButton.addActionListener(e -> {
+        JButton nextButton = new JButton("NEXT");
+        nextButton.setForeground(Color.WHITE);
+        nextButton.setBackground(Color.BLACK);
+        nextButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        nextButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        nextButton.setPreferredSize(new Dimension(120, 40));
+        nextButton.setFocusable(false);
+        nextButton.addActionListener(ae -> {
+
+            //storing the values entered in the form in variables to push into database
+            //data from personal details
+            String formNo = Integer.toString(formNumber);
+            String fName = firstNameField.getText();
+            String lName = lastNameField.getText();
+            String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
             
-            System.out.println("Form submitted");
+            String gender = "null";
+            if(maleButton.isSelected()){
+                gender = "Male";
+            }else if(femaleButton.isSelected()){
+                gender = "Female";
+            }else if(otherButton.isSelected()){
+                gender = "Other";
+            }
+
+            String email = emailField.getText();
+            
+            String maritalStatus = "null";
+            if(marriedButton.isSelected()){
+                maritalStatus = "Married";
+            }else if(singleButton.isSelected()){
+                maritalStatus = "Single";
+            }
+
+            String address = addressField.getText();
+            String city = cityField.getText();
+            String state = stateField.getText();
+            String pinCode = pinCodeField.getText();
+
+            //data from additional details
+
+            String religion = (String) religionDropdown.getSelectedItem();
+            String cast = (String) categoryDropdown.getSelectedItem();
+            String income = (String) incomeDropdown.getSelectedItem();
+            String education = (String) educationDropdown.getSelectedItem();
+            String occupation = (String) occupationDropdown.getSelectedItem();
+            String PAN = PANField.getText();
+            String aadhar = aadharField.getText();
+
+            String senior = "null";
+            if(SC_YesButton.isSelected()){
+                senior = "Yes";
+            }else if(SC_NoButton.isSelected()){
+                senior = "No";
+            }
+
+            String account = "null";
+            if(account_YesButton.isSelected()){
+                account = "Yes";
+            }else if(account_NoButton.isSelected()){
+                account = "No";
+            }
+
+            //form validation
+            if(fName.equals("") && lName.equals("") && dob.equals("") && gender.equals("") && email.equals("") && maritalStatus.equals("") && address.equals("") && city.equals("") && state.equals("") && pinCode.equals("") && religion.equals("") && cast.equals("") && income.equals("") && education.equals("") && occupation.equals("") && PAN.equals("") && aadhar.equals("") && senior.equals("") && account.equals("")){
+                JOptionPane.showMessageDialog(null, "Please fill all the required fields!");
+                return;
+            }
+
+            //databse connection and query processing            
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String query = "insert into users values('" + formNo + "','" + fName + "','" + lName + "','" + dob + "','" + gender + "','" + email + "','" + maritalStatus + "','" + address + "','" + city + "','" + state + "','" + pinCode + "','" + religion + "','" + cast + "','" + income + "','" + education + "','" + occupation + "','" + PAN + "','" + aadhar + "','" + senior + "','" + account + "')";
+
+                dbConnection.st.executeUpdate(query);
+
+                dbConnection.st.close();
+                dbConnection.conn.close();
+                
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         });
 
         JPanel controlButtonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
-        controlButtonsPanel.setBounds(100, 650, 500, 50);
+        controlButtonsPanel.setBounds(100, 1150, 500, 50);
         controlButtonsPanel.setBackground(Color.WHITE);
         controlButtonsPanel.add(clearButton);
-        controlButtonsPanel.add(submitButton);
+        controlButtonsPanel.add(nextButton);
 
         //the form component which holds all the elements
         JPanel signUpForm = new JPanel(null);
-        signUpForm.setPreferredSize(new Dimension(700,750));
+        signUpForm.setPreferredSize(new Dimension(700,1250));
         signUpForm.setBackground(Color.WHITE);
 
         signUpForm.add(headingPanel);
         signUpForm.add(heading2Panel);
+
         signUpForm.add(firstNamePanel);
         signUpForm.add(lastNamePanel);
         signUpForm.add(dobPanel);
@@ -256,6 +510,19 @@ public class SignUp extends JFrame{
         signUpForm.add(cityPanel);
         signUpForm.add(statePanel);
         signUpForm.add(pinCodePanel);
+
+        signUpForm.add(heading3Panel);
+
+        signUpForm.add(religionPanel);
+        signUpForm.add(categoryPanel);
+        signUpForm.add(incomePanel);
+        signUpForm.add(educationPanel);
+        signUpForm.add(occupationPanel);
+        signUpForm.add(PANPanel);
+        signUpForm.add(aadharPanel);
+        signUpForm.add(seniorCitizenshipPanel);
+        signUpForm.add(accountPanel);
+
         signUpForm.add(controlButtonsPanel);
 
         //the scroll pane which holds the whole form and makes it scrollable
