@@ -2,15 +2,24 @@ package com.risorlet.ATM_Simulator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class AccountDetails extends JFrame{
     
+    //Image icon for the frame
     ImageIcon frameIcon = new ImageIcon("F:\\Argha\\Projects\\Java\\ATM Simulator\\app\\src\\main\\resources\\images\\bank.png");
+
+    // Random object to create random card number and pin
+    Random rand = new Random();
+
+    // Generating the Card Number for the user
+    String cardNumber = Long.toString(Math.abs(rand.nextLong() % 100000000L) + 7489556300000000L);
+    String PIN = Integer.toString(Math.abs(rand.nextInt() % 9000) + 1000);
 
     AccountDetails(String formNumber){
 
         // Setting up the frame title and icon
-        setTitle("Fill up Account Details");
+        setTitle("Fill Up Account Details");
         setLocation(380, 80);
         setIconImage(frameIcon.getImage());
         setLayout(null);
@@ -68,10 +77,10 @@ public class AccountDetails extends JFrame{
         accountChoices.add(RD_Account);
 
         // Card Details
-        JLabel cardNumber = new JLabel("Card Number:");
-        cardNumber.setFont(new Font("Helvetica", Font.BOLD, 20));
-        cardNumber.setBounds(50,200,200,40);
-        add(cardNumber);
+        JLabel cardNumberLabel = new JLabel("Card Number:");
+        cardNumberLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
+        cardNumberLabel.setBounds(50,200,200,40);
+        add(cardNumberLabel);
 
         JLabel dummyCardNumber = new JLabel("XXXX-XXXX-XXXX-8749");
         dummyCardNumber.setFont(new Font("Helvetica", Font.BOLD, 20));
@@ -163,6 +172,10 @@ public class AccountDetails extends JFrame{
         cancelButton.setBounds(150,520,100,30);
         cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cancelButton.setFocusable(false);
+        cancelButton.addActionListener(ae -> {
+            setVisible(false);
+            dispose();
+        });
         add(cancelButton);
 
         JButton submitButton = new JButton("SUBMIT");
@@ -172,6 +185,67 @@ public class AccountDetails extends JFrame{
         submitButton.setBounds(350,520,100,30);
         submitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         submitButton.setFocusable(false);
+        submitButton.addActionListener(ae -> {
+
+            // form validation
+            if(!declaration.isSelected()){
+                JOptionPane.showMessageDialog(null, "You must give consent that all the data entered is true!", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }else if(!(savingsAccount.isSelected() || FD_Account.isSelected() || currentAccount.isSelected() || RD_Account.isSelected())){
+                JOptionPane.showMessageDialog(null, "You must select account type!", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Getting the data from the form that has been entered
+            String accountType = "";
+            if(savingsAccount.isSelected()){
+                accountType = "Savings Account";
+            }else if(FD_Account.isSelected()){
+                accountType = "Fixed Deposit Account";
+            }else if(currentAccount.isSelected()){
+                accountType = "Current Account";
+            }else if(RD_Account.isSelected()){
+                accountType = "Recurring Deposit Account";
+            }
+
+            String services = "";
+            if(ATM_Card.isSelected()){
+                services = services.concat("ATM-Card ");
+            }
+            if(internetBanking.isSelected()){
+                services = services.concat("Internet-Banking ");
+            }
+            if(mobileBanking.isSelected()){
+                services = services.concat("Mobile-Banking ");
+            }
+            if(emailAndSmsAlert.isSelected()){
+                services = services.concat("Email-&-SMS ");
+            }
+            if(chequeBook.isSelected()){
+                services = services.concat("Cheque-Book ");
+            }
+            if(E_Statement.isSelected()){
+                services = services.concat("E-Statement ");
+            }
+
+            // Add the data to the database
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String detailsQuery = "insert into account_details values ('" + formNumber + "','" + accountType + "','" + services + "')";
+                String loginQuery = "insert into login values ('" + formNumber + "','" + cardNumber + "','" + PIN + "')";
+                
+                dbConnection.st.executeUpdate(detailsQuery);
+                dbConnection.st.executeUpdate(loginQuery);
+
+                dbConnection.st.close();
+                dbConnection.conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            // Show the user their card number and PIN upon successful submission of form
+            JOptionPane.showMessageDialog(null, "Please save your credentials for later\n\nCard Number: " + cardNumber + "\nPIN: " + PIN, "Your Details", JOptionPane.INFORMATION_MESSAGE);
+        });
         add(submitButton);
 
         // Setting up the size of the frame and making it visible
