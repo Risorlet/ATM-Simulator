@@ -175,6 +175,8 @@ public class AccountDetails extends JFrame{
         cancelButton.addActionListener(ae -> {
             setVisible(false);
             dispose();
+
+            new Login();
         });
         add(cancelButton);
 
@@ -245,6 +247,12 @@ public class AccountDetails extends JFrame{
 
             // Show the user their card number and PIN upon successful submission of form
             JOptionPane.showMessageDialog(null, "Please save your credentials for later\n\nCard Number: " + cardNumber + "\nPIN: " + PIN, "Your Details", JOptionPane.INFORMATION_MESSAGE);
+
+            // After successfully submitting the form, take the user to the transactions page
+            setVisible(false);
+            dispose();
+
+            new TransactionInterface(formNumber);
         });
         add(submitButton);
 

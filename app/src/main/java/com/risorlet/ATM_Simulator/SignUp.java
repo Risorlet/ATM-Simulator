@@ -482,7 +482,10 @@ public class SignUp extends JFrame{
             }
 
             //closing this frame and opening the next frame
+            setVisible(false);
+            dispose();
 
+            new AccountDetails(formNo);
         });
 
         JPanel controlButtonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));

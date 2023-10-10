@@ -123,6 +123,7 @@ public class Login extends JFrame{
         signUpButton.addActionListener(e -> {
             setVisible(false);
             dispose();
+            
             new SignUp();
         });
 
