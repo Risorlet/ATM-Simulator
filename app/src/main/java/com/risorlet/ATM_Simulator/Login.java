@@ -82,20 +82,20 @@ public class Login extends JFrame{
                 ResultSet result = dbConnection.st.executeQuery(validationQuery);
                 
                 if(result.next()){
+                    String formNumber = result.getString("form_number");
                     setVisible(false);
                     dispose();
 
                     dbConnection.st.close();
                     dbConnection.conn.close();
 
-                    new TransactionInterface();
+                    new TransactionInterface(formNumber);
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect card number or PIN entered", "Invalid Information", JOptionPane.WARNING_MESSAGE);
                     dbConnection.st.close();
                     dbConnection.conn.close();
                     return;
                 }
-               
                 dbConnection.st.close();
                 dbConnection.conn.close();
             } catch (Exception e) {

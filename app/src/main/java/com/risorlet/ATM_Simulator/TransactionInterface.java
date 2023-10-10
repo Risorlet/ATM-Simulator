@@ -2,6 +2,7 @@ package com.risorlet.ATM_Simulator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 
 public class TransactionInterface extends JFrame{
     
@@ -13,9 +14,9 @@ public class TransactionInterface extends JFrame{
     Image img = ATM_Lagrge.getImage();
     ImageIcon backgroundImage = new ImageIcon(img.getScaledInstance(672, 700, Image.SCALE_DEFAULT));
 
-    String name = "Argha Ghosh";
+    String name;
 
-    TransactionInterface(){
+    TransactionInterface(String formNumber){
 
         //setting up the frame title and icon
         setTitle("Welcome to ATM");
@@ -27,6 +28,24 @@ public class TransactionInterface extends JFrame{
         JLabel background = new JLabel(backgroundImage);
         background.setBounds(0,0,672,700);
         add(background);
+
+        // Fetching the name of the user who logged in
+        try {
+            DatabaseConnection dbConnection = new DatabaseConnection();
+            String query = "select * from users where form_number = '" + formNumber + "'";
+
+            ResultSet result = dbConnection.st.executeQuery(query);
+            result.next();
+            String fName = result.getString("first_name");
+            String lName = result.getString("last_name");
+
+            name = fName + " " + lName;
+            
+            dbConnection.st.close();
+            dbConnection.conn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
         // Adding the heading text
         JLabel heading = new JLabel("WELCOME, " + name.toUpperCase());
