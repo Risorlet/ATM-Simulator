@@ -3,6 +3,6 @@ package com.risorlet.ATM_Simulator;
 public class App {
     public static void main(String[] args) {
 
-        new AccountDetails("8574");
+        new Login();
     }
 }

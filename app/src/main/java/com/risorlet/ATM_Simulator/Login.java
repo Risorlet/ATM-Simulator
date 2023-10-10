@@ -2,6 +2,7 @@ package com.risorlet.ATM_Simulator;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.*;
 
 public class Login extends JFrame{
     
@@ -68,8 +69,38 @@ public class Login extends JFrame{
         loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loginButton.setPreferredSize(new Dimension(120, 40));
         loginButton.setFocusable(false);
-        loginButton.addActionListener(e -> {
-            System.out.println("Logged in!");
+        loginButton.addActionListener(ae -> {
+            
+            String cardNumber = cardField.getText();
+            String PIN = new String(pinField.getPassword());
+
+            // Check if the card number and the pin are correct and exists in the DB
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String validationQuery = "select * from login where card_number = '" + cardNumber + "' and PIN = '" + PIN + "'";
+
+                ResultSet result = dbConnection.st.executeQuery(validationQuery);
+                
+                if(result.next()){
+                    setVisible(false);
+                    dispose();
+
+                    dbConnection.st.close();
+                    dbConnection.conn.close();
+
+                    new TransactionInterface();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect card number or PIN entered", "Invalid Information", JOptionPane.WARNING_MESSAGE);
+                    dbConnection.st.close();
+                    dbConnection.conn.close();
+                    return;
+                }
+               
+                dbConnection.st.close();
+                dbConnection.conn.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         });
 
         JButton clearButton = new JButton("CLEAR");
@@ -78,7 +109,7 @@ public class Login extends JFrame{
         clearButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         clearButton.setPreferredSize(new Dimension(120, 40));
         clearButton.setFocusable(false);
-        clearButton.addActionListener(e -> {
+        clearButton.addActionListener(ae -> {
             cardField.setText("");
             pinField.setText("");
         });
@@ -90,8 +121,9 @@ public class Login extends JFrame{
         signUpButton.setPreferredSize(new Dimension(120, 40));
         signUpButton.setFocusable(false);
         signUpButton.addActionListener(e -> {
+            setVisible(false);
             dispose();
-            new SignUp().setVisible(true);
+            new SignUp();
         });
 
         //control buttons panel setup

@@ -22,6 +22,7 @@ public class SignUp extends JFrame{
     String[] possibleOccupations = {"Unemployed", "Business", "Salaried", "Self-Employed", "Other"};
 
     SignUp (){
+        
         //setting up the frame title and icon
         setTitle("New Account Application Form");
         setLocation(350, 150);
