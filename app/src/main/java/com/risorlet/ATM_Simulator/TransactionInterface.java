@@ -58,6 +58,76 @@ public class TransactionInterface extends JFrame{
         headingPanel.setBounds(115,270,272,25);
         background.add(headingPanel);
 
+        // Home screen Buttons Panel
+        JPanel buttonsPanel = new JPanel(null);
+        buttonsPanel.setBounds(115,348,272,118);
+        buttonsPanel.setOpaque(false);
+
+        // Buttons that are used everywhere
+        JButton backButton = new JButton("BACK");
+        backButton.setForeground(Color.BLACK);
+        backButton.setBackground(Color.WHITE);
+        backButton.setFont(new Font("Helvetica", Font.BOLD, 8));
+        backButton.setBounds(0,168,120,25);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setFocusable(false);
+        
+
+        // Deposit panel
+        JLabel depositLabel = new JLabel("Enter the Amount you wish to Deposit:");
+        depositLabel.setForeground(Color.BLACK);
+        depositLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JTextField depositAmountField = new JTextField();
+        depositAmountField.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JPanel depositPanel = new JPanel();
+        depositPanel.setBackground(Color.WHITE);
+        depositPanel.setBounds(115,240,272,220);
+        depositPanel.setVisible(false);
+
+        depositPanel.add(depositLabel);
+
+        background.add(depositPanel);
+
+        // Withdrawal Panel
+
+        // Fast-Cash Panel
+
+        // PIN change Panel
+
+        // Balance Enquiry Panel
+            // Main Heading
+        JLabel balanceLabel = new JLabel("Your Account Balance:");
+        balanceLabel.setForeground(Color.WHITE);
+        balanceLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+
+        JPanel balanceLabelPanel = new JPanel();
+        balanceLabelPanel.add(balanceLabel);
+        balanceLabelPanel.setBounds(0,35,272,25);
+        balanceLabelPanel.setOpaque(false);
+        
+            // Main panel to hold everything
+        JPanel balanceEnquiryPanel = new JPanel(null);
+        balanceEnquiryPanel.setOpaque(false);
+        balanceEnquiryPanel.setBounds(115,240,272,220);
+        balanceEnquiryPanel.setVisible(false);
+
+            // Adding components to the main panel
+        balanceEnquiryPanel.add(balanceLabelPanel);
+        balanceEnquiryPanel.add(backButton);
+
+            // Adding button functionality
+        backButton.addActionListener(ae -> {
+            balanceEnquiryPanel.setVisible(false);
+            heading.setVisible(true);
+            buttonsPanel.setVisible(true);
+
+        });
+
+            // Adding the main panel to the background (Main Frame)
+        background.add(balanceEnquiryPanel);
+
         // Setting up the transaction Buttons
         JButton depositButton = new JButton("Deposit".toUpperCase());
         depositButton.setForeground(Color.BLACK);
@@ -122,7 +192,35 @@ public class TransactionInterface extends JFrame{
         balanceEnquiryButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         balanceEnquiryButton.setFocusable(false);
         balanceEnquiryButton.addActionListener(ae -> {
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String fetchBalance = "select balance from account_balance where form_number = '" + formNumber + "'";
 
+                ResultSet result = dbConnection.st.executeQuery(fetchBalance);
+                result.next();
+                String balance = result.getString("balance");
+                
+                dbConnection.st.close();
+                dbConnection.conn.close();
+
+                JLabel currentBalanceLabel = new JLabel(balance);
+                currentBalanceLabel.setFont(new Font("Helvetica", Font.BOLD, 15));
+                currentBalanceLabel.setForeground(Color.WHITE);
+
+                JPanel balancePanel = new JPanel();
+                balancePanel.setBounds(0,75,272,25);
+                balancePanel.add(currentBalanceLabel);
+                balancePanel.setOpaque(false);
+
+                balanceEnquiryPanel.add(balancePanel);
+
+                heading.setVisible(false);
+                buttonsPanel.setVisible(false);
+                balanceEnquiryPanel.setVisible(true);
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         });
 
         JButton exitButton = new JButton("Exit".toUpperCase());
@@ -135,10 +233,6 @@ public class TransactionInterface extends JFrame{
         exitButton.addActionListener(ae -> {
             System.exit(0);
         });
-
-        JPanel buttonsPanel = new JPanel(null);
-        buttonsPanel.setBounds(115,348,272,118);
-        buttonsPanel.setOpaque(false);
 
         buttonsPanel.add(depositButton);
         buttonsPanel.add(fastCashButton);
