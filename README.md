@@ -14,6 +14,15 @@ A GUI java application which simulates an `Automated Teller Machine(ATM)` Interf
 
 ---
 
-To use the application on your system, just clone this repository and run the `gradlew script(for Mac and Linux users)` or the `gradlew.bat file(for windows users)` and you are good to go :)
+To use the application on your system, just clone this repository and run the following commands for linux and Mac machines:
++ `./gradlew build` to build the project
++ `./gradlew run` to run the projector
+
+
+Make sure that you have execution permission for the gradlew file before running the above commands.
+In case you don't have execution permission one easy way to get the would be to run this command `chmod +x gradlew`.
+
+
+For windows machines use`gradlew.bat file` and you are good to go :)
 
     You don't need to have gradle or java installed on your sytem to run the application, the script will handle all that for you.
