@@ -7,7 +7,8 @@ import java.util.*;
 public class AccountDetails extends JFrame{
     
     //Image icon for the frame
-    ImageIcon frameIcon = new ImageIcon("F:\\Argha\\Projects\\Java\\ATM Simulator\\app\\src\\main\\resources\\images\\bank.png");
+    String frameIconPath = System.getProperty("user.dir") + "\\src\\main\\resources\\images\\bank.png";
+    ImageIcon frameIcon = new ImageIcon(frameIconPath);
 
     // Random object to create random card number and pin
     Random rand = new Random();
