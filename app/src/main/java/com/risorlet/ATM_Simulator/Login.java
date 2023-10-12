@@ -6,7 +6,9 @@ import java.sql.*;
 
 public class Login extends JFrame{
     
-    ImageIcon frameIcon = new ImageIcon("F:\\Argha\\Projects\\Java\\ATM Simulator\\app\\src\\main\\resources\\images\\bank.png");
+    String frameIconPath = System.getProperty("user.dir") + "\\src\\main\\resources\\images\\bank.png";
+
+    ImageIcon frameIcon = new ImageIcon(frameIconPath);
     Image bgImage = frameIcon.getImage();
     ImageIcon bgIcon = new ImageIcon(bgImage.getScaledInstance(60, 60, Image.SCALE_DEFAULT));
 

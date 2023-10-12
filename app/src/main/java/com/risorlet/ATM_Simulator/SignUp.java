@@ -10,8 +10,11 @@ public class SignUp extends JFrame{
     Random rand = new Random();
     int formNumber = rand.nextInt(1000, 10000);
 
-    ImageIcon frameIcon = new ImageIcon("F:\\Argha\\Projects\\Java\\ATM Simulator\\app\\src\\main\\resources\\images\\bank.png");
-    ImageIcon personIconLarge = new ImageIcon("F:\\Argha\\Projects\\Java\\ATM Simulator\\app\\src\\main\\resources\\images\\person.png");
+    String frameIconPath = System.getProperty("user.dir") + "\\src\\main\\resources\\images\\bank.png";
+    String personIconPath = System.getProperty("user.dir") + "\\src\\main\\resources\\images\\person.png";
+
+    ImageIcon frameIcon = new ImageIcon(frameIconPath);
+    ImageIcon personIconLarge = new ImageIcon(personIconPath);
     Image img = personIconLarge.getImage();
     ImageIcon personIcon = new ImageIcon(img.getScaledInstance(50, 50, Image.SCALE_DEFAULT));
 
