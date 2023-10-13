@@ -102,7 +102,7 @@ public class TransactionInterface extends JFrame{
         depositCancelButton.addActionListener(ae -> {
             depositPanel.setVisible(false);
             depositAmountField.setText("");
-            heading.setVisible(true);
+            headingPanel.setVisible(true);
             buttonsPanel.setVisible(true);
 
         });
@@ -145,7 +145,7 @@ public class TransactionInterface extends JFrame{
 
                 depositPanel.setVisible(false);
                 depositAmountField.setText("");
-                heading.setVisible(true);
+                headingPanel.setVisible(true);
                 buttonsPanel.setVisible(true);
             } catch (Exception e) {
                 System.out.println(e);
@@ -196,7 +196,7 @@ public class TransactionInterface extends JFrame{
         withdrawalCancelButton.addActionListener(ae -> {
             withdrawalPanel.setVisible(false);
             withdrawalAmountField.setText("");
-            heading.setVisible(true);
+            headingPanel.setVisible(true);
             buttonsPanel.setVisible(true);
 
         });
@@ -222,6 +222,12 @@ public class TransactionInterface extends JFrame{
                 result.next();
                 String oldBalance = result.getString("balance");
 
+                if(Integer.parseInt(oldBalance) < Integer.parseInt(withdrawAmount)){
+                    JOptionPane.showMessageDialog(null, "Insufficient balance to process transcation!","WARNING", JOptionPane.WARNING_MESSAGE);
+                    withdrawalAmountField.setText("");
+                    return;
+                }
+
                 Integer newBalanceValue = Integer.parseInt(oldBalance) - Integer.parseInt(withdrawAmount);
 
                 String newBalance = Integer.toString(newBalanceValue);
@@ -240,7 +246,7 @@ public class TransactionInterface extends JFrame{
 
                 withdrawalPanel.setVisible(false);
                 withdrawalAmountField.setText("");
-                heading.setVisible(true);
+                headingPanel.setVisible(true);
                 buttonsPanel.setVisible(true);
             } catch (Exception e) {
                 System.out.println(e);
@@ -256,6 +262,289 @@ public class TransactionInterface extends JFrame{
         background.add(withdrawalPanel);
 
         // Fast-Cash Panel
+            // Main Heading
+        JLabel fastCashHeadingLabel = new JLabel("Select the amount you wish to withdraw");
+        fastCashHeadingLabel.setForeground(Color.WHITE);
+        fastCashHeadingLabel.setFont(new Font("Helvetica", Font.BOLD, 13));
+
+        JPanel fastCashHeadingPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 15));
+        fastCashHeadingPanel.add(fastCashHeadingLabel);
+        fastCashHeadingPanel.setBounds(0,35,272,80);
+        fastCashHeadingPanel.setOpaque(false);
+
+            // Main panel to hold everything
+        JPanel fastCashPanel = new JPanel(null);
+        fastCashPanel.setOpaque(false);
+        fastCashPanel.setBounds(115,240,272,220);
+        fastCashPanel.setVisible(false);
+
+            // Buttons
+        JButton fastCash500 = new JButton("500");
+        fastCash500.setForeground(Color.BLACK);
+        fastCash500.setBackground(Color.WHITE);
+        fastCash500.setFont(new Font("Helvetica", Font.BOLD, 12));
+        fastCash500.setBounds(2,141,120,25);
+        fastCash500.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        fastCash500.setFocusable(false);
+        fastCash500.addActionListener(ae -> {
+            
+            Date currentDate = new Date();
+
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String fetchBalance = "select * from account_balance where form_number = '" + formNumber +"'";
+
+                ResultSet result = dbConnection.st.executeQuery(fetchBalance);
+                result.next();
+                String oldBalance = result.getString("balance");
+
+                if(Integer.parseInt(oldBalance) < 500){
+                    JOptionPane.showMessageDialog(null, "Insufficient balance to process transcation!","WARNING", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                Integer newBalanceValue = Integer.parseInt(oldBalance) - 500;
+
+                String newBalance = Integer.toString(newBalanceValue);
+
+                String updateBalanceQuery = "update account_balance set balance = '" + newBalance + "' where form_number = '" + formNumber + "'";
+
+                dbConnection.st.executeUpdate(updateBalanceQuery);
+
+                String newTransactionQuery = "insert into transactions values ('" + formNumber + "','" + currentDate + "','" + "withdrawal" + "','" + 500 + "')";
+                dbConnection.st.executeUpdate(newTransactionQuery);
+                
+                dbConnection.st.close();
+                dbConnection.conn.close();
+
+                JOptionPane.showMessageDialog(null, "Amount 500 has been withdrawed successfully!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                fastCashPanel.setVisible(false);
+                headingPanel.setVisible(true);
+                buttonsPanel.setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+
+        JButton fastCash1000 = new JButton("1000");
+        fastCash1000.setForeground(Color.BLACK);
+        fastCash1000.setBackground(Color.WHITE);
+        fastCash1000.setFont(new Font("Helvetica", Font.BOLD, 12));
+        fastCash1000.setBounds(2,168,120,25);
+        fastCash1000.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        fastCash1000.setFocusable(false);
+        fastCash1000.addActionListener(ae -> {
+            
+            Date currentDate = new Date();
+
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String fetchBalance = "select * from account_balance where form_number = '" + formNumber +"'";
+
+                ResultSet result = dbConnection.st.executeQuery(fetchBalance);
+                result.next();
+                String oldBalance = result.getString("balance");
+
+                if(Integer.parseInt(oldBalance) < 1000){
+                    JOptionPane.showMessageDialog(null, "Insufficient balance to process transcation!","WARNING", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                Integer newBalanceValue = Integer.parseInt(oldBalance) - 1000;
+
+                String newBalance = Integer.toString(newBalanceValue);
+
+                String updateBalanceQuery = "update account_balance set balance = '" + newBalance + "' where form_number = '" + formNumber + "'";
+
+                dbConnection.st.executeUpdate(updateBalanceQuery);
+
+                String newTransactionQuery = "insert into transactions values ('" + formNumber + "','" + currentDate + "','" + "withdrawal" + "','" + 1000 + "')";
+                dbConnection.st.executeUpdate(newTransactionQuery);
+                
+                dbConnection.st.close();
+                dbConnection.conn.close();
+
+                JOptionPane.showMessageDialog(null, "Amount 1000 has been withdrawed successfully!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                fastCashPanel.setVisible(false);
+                headingPanel.setVisible(true);
+                buttonsPanel.setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+
+        JButton fastCash2000 = new JButton("2000");
+        fastCash2000.setForeground(Color.BLACK);
+        fastCash2000.setBackground(Color.WHITE);
+        fastCash2000.setFont(new Font("Helvetica", Font.BOLD, 12));
+        fastCash2000.setBounds(2,195,120,25);
+        fastCash2000.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        fastCash2000.setFocusable(false);
+        fastCash2000.addActionListener(ae -> {
+            
+            Date currentDate = new Date();
+
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String fetchBalance = "select * from account_balance where form_number = '" + formNumber +"'";
+
+                ResultSet result = dbConnection.st.executeQuery(fetchBalance);
+                result.next();
+                String oldBalance = result.getString("balance");
+
+                if(Integer.parseInt(oldBalance) < 2000){
+                    JOptionPane.showMessageDialog(null, "Insufficient balance to process transcation!","WARNING", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                Integer newBalanceValue = Integer.parseInt(oldBalance) - 2000;
+
+                String newBalance = Integer.toString(newBalanceValue);
+
+                String updateBalanceQuery = "update account_balance set balance = '" + newBalance + "' where form_number = '" + formNumber + "'";
+
+                dbConnection.st.executeUpdate(updateBalanceQuery);
+
+                String newTransactionQuery = "insert into transactions values ('" + formNumber + "','" + currentDate + "','" + "withdrawal" + "','" + 2000 + "')";
+                dbConnection.st.executeUpdate(newTransactionQuery);
+                
+                dbConnection.st.close();
+                dbConnection.conn.close();
+
+                JOptionPane.showMessageDialog(null, "Amount 2000 has been withdrawed successfully!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                fastCashPanel.setVisible(false);
+                headingPanel.setVisible(true);
+                buttonsPanel.setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+
+        JButton fastCash5000 = new JButton("5000");
+        fastCash5000.setForeground(Color.BLACK);
+        fastCash5000.setBackground(Color.WHITE);
+        fastCash5000.setFont(new Font("Helvetica", Font.BOLD, 12));
+        fastCash5000.setBounds(150,141,120,25);
+        fastCash5000.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        fastCash5000.setFocusable(false);
+        fastCash5000.addActionListener(ae -> {
+            
+            Date currentDate = new Date();
+
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String fetchBalance = "select * from account_balance where form_number = '" + formNumber +"'";
+
+                ResultSet result = dbConnection.st.executeQuery(fetchBalance);
+                result.next();
+                String oldBalance = result.getString("balance");
+
+                if(Integer.parseInt(oldBalance) < 5000){
+                    JOptionPane.showMessageDialog(null, "Insufficient balance to process transcation!","WARNING", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                Integer newBalanceValue = Integer.parseInt(oldBalance) - 5000;
+
+                String newBalance = Integer.toString(newBalanceValue);
+
+                String updateBalanceQuery = "update account_balance set balance = '" + newBalance + "' where form_number = '" + formNumber + "'";
+
+                dbConnection.st.executeUpdate(updateBalanceQuery);
+
+                String newTransactionQuery = "insert into transactions values ('" + formNumber + "','" + currentDate + "','" + "withdrawal" + "','" + 5000 + "')";
+                dbConnection.st.executeUpdate(newTransactionQuery);
+                
+                dbConnection.st.close();
+                dbConnection.conn.close();
+
+                JOptionPane.showMessageDialog(null, "Amount 5000 has been withdrawed successfully!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                fastCashPanel.setVisible(false);
+                headingPanel.setVisible(true);
+                buttonsPanel.setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+
+        JButton fastCash10000 = new JButton("10000");
+        fastCash10000.setForeground(Color.BLACK);
+        fastCash10000.setBackground(Color.WHITE);
+        fastCash10000.setFont(new Font("Helvetica", Font.BOLD, 12));
+        fastCash10000.setBounds(150,168,120,25);
+        fastCash10000.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        fastCash10000.setFocusable(false);
+        fastCash10000.addActionListener(ae -> {
+            
+            Date currentDate = new Date();
+
+            try {
+                DatabaseConnection dbConnection = new DatabaseConnection();
+                String fetchBalance = "select * from account_balance where form_number = '" + formNumber +"'";
+
+                ResultSet result = dbConnection.st.executeQuery(fetchBalance);
+                result.next();
+                String oldBalance = result.getString("balance");
+
+                if(Integer.parseInt(oldBalance) < 10000){
+                    JOptionPane.showMessageDialog(null, "Insufficient balance to process transcation!","WARNING", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                Integer newBalanceValue = Integer.parseInt(oldBalance) - 10000;
+
+                String newBalance = Integer.toString(newBalanceValue);
+
+                String updateBalanceQuery = "update account_balance set balance = '" + newBalance + "' where form_number = '" + formNumber + "'";
+
+                dbConnection.st.executeUpdate(updateBalanceQuery);
+
+                String newTransactionQuery = "insert into transactions values ('" + formNumber + "','" + currentDate + "','" + "withdrawal" + "','" + 10000 + "')";
+                dbConnection.st.executeUpdate(newTransactionQuery);
+                
+                dbConnection.st.close();
+                dbConnection.conn.close();
+
+                JOptionPane.showMessageDialog(null, "Amount 10000 has been withdrawed successfully!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
+
+                fastCashPanel.setVisible(false);
+                headingPanel.setVisible(true);
+                buttonsPanel.setVisible(true);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        });
+
+        JButton fastCashCancelButton = new JButton("CANCEL");
+        fastCashCancelButton.setForeground(Color.BLACK);
+        fastCashCancelButton.setBackground(Color.WHITE);
+        fastCashCancelButton.setFont(new Font("Helvetica", Font.BOLD, 10));
+        fastCashCancelButton.setBounds(150,195,120,25);
+        fastCashCancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        fastCashCancelButton.setFocusable(false);
+        fastCashCancelButton.addActionListener(ae -> {
+
+            fastCashPanel.setVisible(false);
+            headingPanel.setVisible(true);
+            buttonsPanel.setVisible(true);
+            
+        });
+
+            // Adding components to the main panel
+        fastCashPanel.add(fastCashHeadingPanel);
+        fastCashPanel.add(fastCash500);
+        fastCashPanel.add(fastCash1000);
+        fastCashPanel.add(fastCash2000);
+        fastCashPanel.add(fastCash5000);
+        fastCashPanel.add(fastCash10000);
+        fastCashPanel.add(fastCashCancelButton);
+
+            // Adding the main panel to the background (Main Frame)
+        background.add(fastCashPanel);
 
         // PIN change Panel
             // Main Heading
@@ -292,7 +581,7 @@ public class TransactionInterface extends JFrame{
         PINChangecancelButton.setFocusable(false);
         PINChangecancelButton.addActionListener(ae -> {
             changePINPanel.setVisible(false);
-            heading.setVisible(true);
+            headingPanel.setVisible(true);
             buttonsPanel.setVisible(true);
 
         });
@@ -321,7 +610,7 @@ public class TransactionInterface extends JFrame{
                 JOptionPane.showMessageDialog(null, "Your PIN has been changed successfully!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
 
                 changePINPanel.setVisible(false);
-                heading.setVisible(true);
+                headingPanel.setVisible(true);
                 buttonsPanel.setVisible(true);
             } catch (Exception e) {
                 System.out.println(e);
@@ -373,7 +662,7 @@ public class TransactionInterface extends JFrame{
         backButton.setFocusable(false);
         backButton.addActionListener(ae -> {
             balanceEnquiryPanel.setVisible(false);
-            heading.setVisible(true);
+            headingPanel.setVisible(true);
             buttonsPanel.setVisible(true);
 
         });
@@ -398,7 +687,7 @@ public class TransactionInterface extends JFrame{
         depositButton.setFocusable(false);
         depositButton.addActionListener(ae -> {
 
-            heading.setVisible(false);
+            headingPanel.setVisible(false);
             buttonsPanel.setVisible(false);
             depositPanel.setVisible(true);
         });
@@ -412,6 +701,9 @@ public class TransactionInterface extends JFrame{
         fastCashButton.setFocusable(false);
         fastCashButton.addActionListener(ae -> {
 
+            headingPanel.setVisible(false);
+            buttonsPanel.setVisible(false);
+            fastCashPanel.setVisible(true);
         });
 
         JButton pinChangeButton = new JButton("Change PIN".toUpperCase());
@@ -423,7 +715,7 @@ public class TransactionInterface extends JFrame{
         pinChangeButton.setFocusable(false);
         pinChangeButton.addActionListener(ae -> {
             
-            heading.setVisible(false);
+            headingPanel.setVisible(false);
             buttonsPanel.setVisible(false);
             changePINPanel.setVisible(true);
         });
@@ -437,7 +729,7 @@ public class TransactionInterface extends JFrame{
         withdrawlButton.setFocusable(false);
         withdrawlButton.addActionListener(ae -> {
 
-            heading.setVisible(false);
+            headingPanel.setVisible(false);
             buttonsPanel.setVisible(false);
             withdrawalPanel.setVisible(true);
         });
@@ -474,7 +766,7 @@ public class TransactionInterface extends JFrame{
                 dbConnection.st.close();
                 dbConnection.conn.close();
 
-                heading.setVisible(false);
+                headingPanel.setVisible(false);
                 buttonsPanel.setVisible(false);
                 balanceEnquiryPanel.setVisible(true);
 
