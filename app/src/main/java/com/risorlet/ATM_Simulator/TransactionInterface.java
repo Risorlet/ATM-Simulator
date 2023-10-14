@@ -23,7 +23,7 @@ public class TransactionInterface extends JFrame{
 
         //setting up the frame title and icon
         setTitle("Welcome to ATM");
-        setLocation(370, 10);
+        setLocation(370, 12);
         setIconImage(frameIcon.getImage());
         setLayout(null);
 
@@ -743,6 +743,7 @@ public class TransactionInterface extends JFrame{
         miniStatementButton.setFocusable(false);
         miniStatementButton.addActionListener(ae -> {
 
+            new MiniAccountStatement(formNumber);
         });
 
         JButton balanceEnquiryButton = new JButton("Balance Enquiry".toUpperCase());
