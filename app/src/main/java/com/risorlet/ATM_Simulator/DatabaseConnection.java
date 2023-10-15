@@ -21,7 +21,7 @@ public class DatabaseConnection {
             conn = DriverManager.getConnection(url, userName, password);
 
             // Creates a statement which will be used to execute queries
-            st = conn.createStatement();
+            st = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
             
         } catch (Exception e) {
             System.out.println(e);
