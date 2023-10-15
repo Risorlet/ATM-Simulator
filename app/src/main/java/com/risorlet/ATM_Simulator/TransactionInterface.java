@@ -17,7 +17,8 @@ public class TransactionInterface extends JFrame{
     Image img = ATM_Lagrge.getImage();
     ImageIcon backgroundImage = new ImageIcon(img.getScaledInstance(672, 700, Image.SCALE_DEFAULT));
 
-    String name;
+    String name = "xxxx";
+    String cardNumber = "xxxxxxxxxxxxxxxx";
 
     TransactionInterface(String formNumber){
 
@@ -32,22 +33,27 @@ public class TransactionInterface extends JFrame{
         background.setBounds(0,0,672,700);
         add(background);
 
-        // Fetching the name of the user who logged in
+        // Fetching the name and card number of the user who logged in
         try {
             DatabaseConnection dbConnection = new DatabaseConnection();
             String query = "select * from users where form_number = '" + formNumber + "'";
+            String getCardQuery = "select * from login where form_number = '" + formNumber + "'";
 
-            ResultSet result = dbConnection.st.executeQuery(query);
-            result.next();
-            String fName = result.getString("first_name");
-            String lName = result.getString("last_name");
+            ResultSet userResult = dbConnection.st.executeQuery(query);
 
+            userResult.next();
+            String fName = userResult.getString("first_name");
+            String lName = userResult.getString("last_name");
             name = fName + " " + lName;
+
+            ResultSet loginResult = dbConnection.st.executeQuery(getCardQuery); 
+            loginResult.next();
+            cardNumber = loginResult.getString("card_number");
             
             dbConnection.st.close();
             dbConnection.conn.close();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         // Adding the heading text
@@ -743,7 +749,7 @@ public class TransactionInterface extends JFrame{
         miniStatementButton.setFocusable(false);
         miniStatementButton.addActionListener(ae -> {
 
-            new MiniAccountStatement(formNumber);
+            new MiniAccountStatement(formNumber,name,cardNumber);
         });
 
         JButton balanceEnquiryButton = new JButton("Balance Enquiry".toUpperCase());
