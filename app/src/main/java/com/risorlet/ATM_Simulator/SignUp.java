@@ -531,8 +531,9 @@ public class SignUp extends JFrame{
         signUpForm.add(controlButtonsPanel);
 
         //the scroll pane which holds the whole form and makes it scrollable
-        JScrollPane scrollableForm = new JScrollPane(signUpForm, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollableForm.setBounds(0, 0, 700, 450);
+        JScrollPane scrollableForm = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollableForm.setViewportView(signUpForm);
+        scrollableForm.setBounds(0, 0, 685, 450);
         add(scrollableForm);
 
         //setting up the size of the frame and making it visible
