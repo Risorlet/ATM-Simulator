@@ -231,14 +231,25 @@ public class AccountDetails extends JFrame{
                 services = services.concat("E-Statement ");
             }
 
+            // Taking input for the opening balance of the user
+            String openingBalance = (String) JOptionPane.showInputDialog(this, "Enter Amount:", "Enter Account Opening Amount", JOptionPane.QUESTION_MESSAGE,null,null,"3000");
+
+            // If the user enters 0 or keeps the field blank then don't let the user submit the form
+            if(openingBalance.equals("") || openingBalance.equals("0") || openingBalance == null){
+                JOptionPane.showMessageDialog(this,"ERROR","Opening balance can't be empty!",JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Add the data to the database
             try {
                 DatabaseConnection dbConnection = new DatabaseConnection();
                 String detailsQuery = "insert into account_details values ('" + formNumber + "','" + accountType + "','" + services + "')";
                 String loginQuery = "insert into login values ('" + formNumber + "','" + cardNumber + "','" + PIN + "')";
-                
+                String balanceQuery = "insert into account_balance values ('" + formNumber +"','" + openingBalance +"')";
+
                 dbConnection.st.executeUpdate(detailsQuery);
                 dbConnection.st.executeUpdate(loginQuery);
+                dbConnection.st.executeUpdate(balanceQuery);
 
                 dbConnection.st.close();
                 dbConnection.conn.close();
