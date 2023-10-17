@@ -377,34 +377,19 @@ public class SignUp extends JFrame{
         accountPanel.add(account_NoButton);
 
         //form control buttons
-        JButton clearButton = new JButton("CLEAR");
-        clearButton.setForeground(Color.WHITE);
-        clearButton.setBackground(Color.BLACK);
-        clearButton.setFont(new Font("Helvetica", Font.BOLD, 13));
-        clearButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        clearButton.setPreferredSize(new Dimension(120, 40));
-        clearButton.setFocusable(false);
-        clearButton.addActionListener(e -> {
+        JButton cancelButton = new JButton("CANCEL");
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setBackground(Color.BLACK);
+        cancelButton.setFont(new Font("Helvetica", Font.BOLD, 13));
+        cancelButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        cancelButton.setPreferredSize(new Dimension(120, 40));
+        cancelButton.setFocusable(false);
+        cancelButton.addActionListener(e -> {
             
-            firstNameField.setText("");
-            lastNameField.setText("");
-            dateChooser.setCalendar(null);
-            genderButtons.clearSelection();
-            emailField.setText("");
-            maritalButtons.clearSelection();
-            addressField.setText("");
-            cityField.setText("");
-            stateField.setText("");
-            pinCodeField.setText("");
-            religionDropdown.setSelectedItem(null);
-            categoryDropdown.setSelectedItem(null);
-            incomeDropdown.setSelectedItem(null);
-            educationDropdown.setSelectedItem(null);
-            occupationDropdown.setSelectedItem(null);
-            PANField.setText("");
-            aadharField.setText("");
-            SC_Buttons.clearSelection();
-            accountButtons.clearSelection();
+            setVisible(false);
+            dispose();
+
+            new Login();
         });
 
         JButton nextButton = new JButton("NEXT");
@@ -494,7 +479,7 @@ public class SignUp extends JFrame{
         JPanel controlButtonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 10));
         controlButtonsPanel.setBounds(100, 1150, 500, 50);
         controlButtonsPanel.setBackground(Color.WHITE);
-        controlButtonsPanel.add(clearButton);
+        controlButtonsPanel.add(cancelButton);
         controlButtonsPanel.add(nextButton);
 
         //the form component which holds all the elements
